@@ -1,0 +1,87 @@
+﻿<Window x:Class="CakeMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakeMaker"
+        mc:Ignorable="d"
+        Title="The Cake Maker" Height="500" Width="500" ResizeMode="NoResize">
+    <Grid>
+        <DockPanel>
+            <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="26" FontWeight="Bold">Let's Make a Cake</Label>
+            <StackPanel Width="275">
+                <Border BorderBrush="Black" BorderThickness="2" Margin="5" Padding="5,0,5,5">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">Size/Shape</Label>
+                        <StackPanel>
+                            <RadioButton x:Name="Round_8" Content="8&quot; Round" ToolTip="$5" Margin="0,0,0,2" Checked="CakeSizeChanged"/>
+                            <RadioButton x:Name="Round_10" Content="10&quot; Round" ToolTip="$6" Margin="0,0,0,2" Checked="CakeSizeChanged"/>
+                            <RadioButton x:Name="Square" Content="12&quot; x 12&quot; Square" ToolTip="$7" Margin="0,0,0,2" Checked="CakeSizeChanged"/>
+                            <RadioButton x:Name="Rectangle" Content="12&quot; x 24&quot; Rectangle" ToolTip="$10" Margin="0,0,0,2" Checked="CakeSizeChanged"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" Margin="5" Padding="5,0,5,5">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">Filling/Frosting</Label>
+                        <StackPanel x:Name="fillings_panel">
+                            <CheckBox x:Name="choc_fill" Content="Chocolate Filling" ToolTip="$5" Margin="0,0,0,2" Checked="UpdatePrice_Check" Unchecked="UpdatePrice_Check"/>
+                            <CheckBox x:Name="van_fill" Content="Vanilla Filling" ToolTip="$6" Margin="0,0,0,2" Checked="UpdatePrice_Check" Unchecked="UpdatePrice_Check"/>
+                            <CheckBox x:Name="pis_fill" Content="Pistachio Filling" ToolTip="$7" Margin="0,0,0,2" Checked="UpdatePrice_Check" Unchecked="UpdatePrice_Check"/>
+                            <CheckBox x:Name="choc_frost" Content="Chocolate Frosting" ToolTip="$10" Margin="0,0,0,2" Checked="UpdatePrice_Check" Unchecked="UpdatePrice_Check"/>
+                            <CheckBox x:Name="car_frost" Content="Caramel Frosting" ToolTip="$10" Margin="0,0,0,2" Checked="UpdatePrice_Check" Unchecked="UpdatePrice_Check"/>
+                            <CheckBox x:Name="bac_frost" Content="Bacon-Flavored Frosting" ToolTip="$10" Margin="0,0,0,2" Checked="UpdatePrice_Check" Unchecked="UpdatePrice_Check"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="2" Margin="5" Padding="5,0,5,5">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">Decorations</Label>
+                        <StackPanel x:Name="decorations_panel">
+                            <Grid x:Name="writing_grid" Margin="0,0,0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox x:Name="writing_check" Grid.Column="0" Content="Writing" ToolTip="$5"/>
+                                <TextBox x:Name="writing_desc" Grid.Column="1" TextChanged="UpdatePrice_Check" IsEnabled="{Binding ElementName=writing_check, Path=IsChecked}"/>
+                            </Grid>
+                            <Grid x:Name="drawing_grid" Margin="0,0,0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox x:Name="drawing_check" Grid.Column="0" Content="Drawing" ToolTip="$5"/>
+                                <TextBox x:Name="drawing_desc" Grid.Column="1" IsEnabled="{Binding ElementName=drawing_check, Path=IsChecked}"/>
+                            </Grid>
+                            <Grid x:Name="photo_grid" Margin="0,0,0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox x:Name="photo_check" Grid.Column="0" Content="Photo" ToolTip="$5"/>
+                                <TextBox x:Name="photo_desc" Grid.Column="1" IsEnabled="{Binding ElementName=photo_check, Path=IsChecked}"/>
+                            </Grid>
+                            <Grid x:Name="candles_grid" Margin="0,0,0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox x:Name="candles_check" Grid.Column="0" Content="Candles" ToolTip="$5"/>
+                                <TextBox x:Name="candles_desc" Grid.Column="1" Width="30" TextChanged="UpdatePrice_Check" HorizontalAlignment="Left" IsEnabled="{Binding ElementName=candles_check, Path=IsChecked}"/>
+                            </Grid>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="TotalPrice" FontSize="56" Grid.Row="0" Margin="15,0,0,0" VerticalAlignment="Center" DockPanel.Dock="Right">$0.00</Label>
+                <Button x:Name="CreateRecipe" Content="Create Recipe" Grid.Row="1" VerticalAlignment="Bottom" DockPanel.Dock="Right" Margin="0,0,0,5" Width="80" Click="CreateRecipe_Click"/>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
