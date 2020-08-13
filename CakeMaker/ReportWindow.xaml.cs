@@ -20,8 +20,10 @@ namespace CakeMaker
         public ReportWindow(Cake cake)
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             report_price.Text = cake.Price.ToString("$#.00");
-            report_time.Text = cake.TimeToMake.ToString("c");
+            report_time.Text = cake.TimeToMake.Hours + " Hrs  " +
+                               cake.TimeToMake.Minutes + " Mins";
             foreach (Ingredient i in cake.Ingredients)
             {
                 TextBlock tb = new TextBlock()
